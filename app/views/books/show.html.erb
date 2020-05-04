@@ -23,12 +23,33 @@
 					</td>
 					<td><%= link_to @book.title, @book %></td>
 					<td><%= @book.body %></td>
+					<td><%= render "favorites/favorite", book: @book %><%= @book.favorites_count %></td>
+					<td>コメント数:<%= @book.comment_count %></td>
 					<%if @user.id == current_user.id %>
 					<td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
-					<td><%= link_to "Destroy",@book, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
+					<td><%= link_to "Destroy",book_path, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
 					<% end %>
 				</tr>
 			</table>
+
+			<%# コメント一覧 %>
+			<h2>Book Comment</h2>
+			<table class="table">
+			  <% @book_comments.each do |book_comment| %>
+			  <tr>
+			    <td><%= book_comment.comment %></td>
+			    <td><%= link_to 'Destroy',book_book_comment_path(book_comment.id), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger" %></td>
+			  </tr>
+			  <% end %>
+			</table>
+
+			<%# コメント機能 %>
+			<%= form_for([@book, @book_comment] ,url:book_book_comments_path(@book.id)) do |f| %>
+			  <%= f.text_area :comment, class: "form-control", rows: 5 %>
+			  <%= f.submit "投稿", class: "btn btn-primary mt-5" %>
+			<% end %>
+
+
 
 	</div>
 </div>

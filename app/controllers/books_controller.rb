@@ -4,11 +4,14 @@ class BooksController < ApplicationController
   	@book = Book.find(params[:id])
     @user = @book.user
     @books = Book.new
+    @book_comment = BookComment.new
+    @book_comments = BookComment.all
   end
 
   def index
     @book = Book.new
   	@books = Book.all #一覧表示するためにBookモデルの情報を全てくださいのall
+    @favorite = Favorite.new #いいねするために作成
   end
 
   def create

@@ -1,0 +1,8 @@
+<%# いいね投稿ボタン %>
+<span>
+  <% if book.favorites_user(current_user.id, book.id) %>
+    <%= link_to '',book_favorites_path(book.id),method: :delete,class: "glyphicon glyphicon-heart"  %>
+  <% else %>
+    <%= link_to '',book_favorites_path(book.id),method: :post, class: " glyphicon glyphicon-heart-empty" %>
+  <% end %>
+</span>
